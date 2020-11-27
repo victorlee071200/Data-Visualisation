@@ -45,11 +45,11 @@ header img {
 }
 h1#text {
   position: relative;
-  color: #fff;
-  font-size: 2em;
-  margin-top: 150px;
-  z-index: 1;
-  margin-left: 200px;
+  color: rgb(124, 185, 255);
+  font-size: 8em;
+  margin-top: 250px;
+  z-index: 3;
+  margin-right: 450px;
 }
 #girl {
   z-index: 2;
