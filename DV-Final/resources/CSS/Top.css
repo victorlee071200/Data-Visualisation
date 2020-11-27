@@ -1,0 +1,68 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  transition: 0.5s;
+}
+body {
+  background: #413b46;
+}
+header {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+header:before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 100px;
+  background: linear-gradient(to top, #413b46, transparent);
+  z-index: 100;
+}
+header video {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  object-fit: cover;
+  pointer-events: none;
+}
+header img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  object-fit: cover;
+  pointer-events: none;
+}
+h1#text {
+  position: relative;
+  color: #fff;
+  font-size: 2em;
+  margin-top: 150px;
+  z-index: 1;
+  margin-left: 200px;
+}
+#girl {
+  z-index: 2;
+}
+section {
+  padding: 100px;
+  color: #fff;
+}
+section h2 {
+  text-align: center;
+  font-size: 5em;
+}
+section p {
+  margin: 40px;
+  font-size: 1.5em;
+}
