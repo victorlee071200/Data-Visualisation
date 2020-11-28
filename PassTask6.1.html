@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Data Visualisation" />
+    <meta name="keywords" content="HTML, CSS, D3" />
+    <meta name="author" content="Lee Zhe Sheng" />
+    <title>Task 6.1 D3 Interactivity - mouse over effects</title>
+
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+  </head>
+  <body>
+    <h1>Bar Chart with Mouse Over</h1>
+    <button class="button button1" id="add">Add</button>
+    <button class="button button1" id="remove">Remove</button>
+    <br />
+
+    <script>
+      var w = 500;
+      var h = 100;
+      var maxValue = 25;
+      var barpadding = 1;
+      var dataset = [14, 5, 26, 23, 9, 10, 30, 16, 20];
+
+      var xScale = d3
+        .scaleBand()
+        .domain(d3.range(dataset.length))
+        .rangeRound([0, w])
+        .paddingInner(0.05);
+
+      var yScale = d3
+        .scaleLinear()
+        .domain([0, d3.max(dataset)])
+        .range([0, h]);
+
+      var svg = d3
+        .select("body")
+        .append("svg")
+        .attr("width", w)
+        .attr("height", h);
+
+      /*Creating a rectangle*/
+      svg
+        .selectAll("rect")
+        .data(dataset)
+        .enter()
+        .append("rect")
+        .attr("x", function (d, i) {
+          return xScale(i);
+        })
+        .attr("y", function (d) {
+          return h - yScale(d); /* flipping the barchart*/
+        })
+        .attr("width", xScale.bandwidth())
+        .attr("height", function (d) {
+          return yScale(d);
+        })
+
+        .attr("fill", "grey")
+
+        /*
+        .on("mouseover", function (d) {
+          d3.select(this).transition().delay(500).attr("fill", "orange");
+        })
+        .on("mouseout", function () {
+          d3.select(this).transition().delay(500).attr("fill", "grey");
+        })
+        .append("title")
+        .text(function (d) {
+          return "This value is " + d;
+        });
+        */
+
+        .on("mouseover", function (d) {
+          // Get this bar's x/y values, then augement for the tooltip
+          var xPosition =
+            parseFloat(d3.select(this).attr("x")) + xScale.bandwidth() / 2;
+          var yPosition = parseFloat(d3.select(this).attr("y")) + 14;
+
+          //Create the tooltip label
+          svg
+            .append("text")
+            .attr("id", "tooltip")
+            .attr("x", xPosition)
+            .attr("y", yPosition)
+            .attr("text-anchor", "middle")
+            .attr("font-family", "san-serif")
+            .attr("font-size", "11px")
+            .attr("font-weight", "bold")
+            .attr("fill", "black")
+            .text(d);
+          d3.select(this).attr("fill", "orange");
+        })
+
+        .on("mouseout", function (d) {
+          d3.select("#tooltip").remove();
+          d3.select(this).attr("fill", "grey ");
+        });
+
+      d3.selectAll("button").on("click", function () {
+        var buttonID = d3.select(this).attr("id");
+        if (buttonID == "add") {
+          var newNumber = Math.floor(Math.random() * maxValue);
+          dataset.push(newNumber);
+        } else {
+          dataset.shift();
+          xScale.domain(d3.range(dataset.length));
+          var bars = svg.selectAll("rect").data(dataset);
+          bars
+            .enter()
+            .append("rect")
+            .attr("x", w)
+            .attr("y", function (d) {
+              return h - yScale(d); /* flipping the barchart*/
+            })
+            .merge(bars)
+            .transition()
+            .duration(500)
+            .attr("x", function (d, i) {
+              return xScale(i);
+            })
+            .attr("y", function (d) {
+              return h - yScale(d); /* flipping the barchart*/
+            })
+            .attr("width", xScale.bandwidth())
+            .attr("height", function (d) {
+              return yScale(d);
+            });
+
+          bars.exit().transition().duration(500).attr("x", w).remove();
+        }
+
+        xScale.domain(d3.range(dataset.length));
+
+        var bars = svg.selectAll("rect").data(dataset);
+
+        bars
+          .enter()
+          .append("rect")
+          .attr("x", w)
+          .attr("y", function (d) {
+            return h - yScale(d);
+          })
+          .style("fill", "grey")
+          .merge(bars)
+          .transition()
+          .duration(500)
+          .attr("x", function (d, i) {
+            return xScale(i);
+          })
+          .attr("y", function (d) {
+            return h - yScale(d); /* flipping the barchart*/
+          })
+          .attr("width", xScale.bandwidth())
+          .attr("height", function (d) {
+            return yScale(d);
+          });
+      });
+    </script>
+
+    <br />
+
+    <footer style="color: grey">
+      COS30045 Data Visualisation<br />Lee Zhe Sheng (101215371)
+    </footer>
+  </body>
+</html>

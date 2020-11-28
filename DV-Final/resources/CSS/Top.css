@@ -67,3 +67,26 @@ section p {
   margin: 40px;
   font-size: 1.5em;
 }
+
+#topbar {
+  transition: 1.5s;
+}
+
+#my_dataviz {
+  position: absolute;
+}
+
+#marine h2 {
+  text-align: center;
+  font-size: 5em;
+}
+
+#marine p {
+  text-align: center;
+}
+
+#my_dataviz {
+  margin-left: 30%;
+  margin-right: 30%;
+  display: block;
+}
