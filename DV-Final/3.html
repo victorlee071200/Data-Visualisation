@@ -6,6 +6,8 @@
     <title>Animation Video Parallax</title>
     <!-- Load d3.js -->
     <script src="https://d3js.org/d3.v4.js"></script>
+    <!-- Color Scale -->
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
   </head>
   <body>
     <header>
@@ -38,16 +40,8 @@
       </p>
     </section>
 
-    <div id="marine">
-      <h2>Something Here about Marine Temp</h2>
-      <!-- Create a div where the graph will take place -->
-
-      <p>Drag to zoom in</p>
-      <p>double click the graph to reset</p>
-      <br />
-
-      <div id="antarctica"></div>
-    </div>
+    <!-- Create a div where the graph will take place -->
+    <div id="my_dataviz"></div>
 
     <!-- Parallax Animation  -->
     <script>
@@ -73,7 +67,6 @@
       });
     </script>
 
-    <script src="../DV-Final/resources/JS/Marine_CO2.js"></script>
-    <script src="../DV-Final/resources/JS/Antarctica_Mass.js"></script>
+    <script src="../DV-Final/resources/JS/land-ocean-temp.js"></script>
   </body>
 </html>

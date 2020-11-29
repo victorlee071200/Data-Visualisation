@@ -24,7 +24,7 @@ function init() {
 
   //Read the data
   d3.csv(
-    "../DV-Final/data/Antarctica_Mass_Loss.csv",
+    "../DV-Final/data/antarctica-mass-loss.csv",
 
     // When reading the csv, I must format variables:
     function (d) {

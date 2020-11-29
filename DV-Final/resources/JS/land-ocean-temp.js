@@ -1,17 +1,6 @@
-<!DOCTYPE html>
-<meta charset="utf-8" />
-
-<!-- Load d3.js -->
-<script src="https://d3js.org/d3.v4.js"></script>
-
-<!-- Create a div where the graph will take place -->
-<div id="my_dataviz"></div>
-
-<!-- Color Scale -->
-<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
-<script>
+function init() {
   // set the dimensions and margins of the graph
-  var margin = { top: 20, right: 20, bottom: 50, left: 70 },
+  var margin = { top: 35, right: 100, bottom: 100, left: 70 },
     width = 880 - margin.left - margin.right,
     height = 800 - margin.top - margin.bottom;
 
@@ -25,7 +14,7 @@
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
   //Read the data
-  d3.csv("HAHA.csv", function (data) {
+  d3.csv("../DV-Final/data/land-ocean-temp.csv", function (data) {
     // List of groups (here I have one group per column)
     var allGroup = ["valueA", "valueB"];
 
@@ -190,4 +179,5 @@
           .style("opacity", currentOpacity == 1 ? 0 : 1);
       });
   });
-</script>
+}
+window.onload = init;

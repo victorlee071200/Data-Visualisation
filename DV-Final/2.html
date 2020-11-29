@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="../DV-Final/resources/CSS/Top.css" />
+    <title>Animation Video Parallax</title>
+    <!-- Load d3.js -->
+    <script src="https://d3js.org/d3.v4.js"></script>
+  </head>
+  <body>
+    <header>
+      <div id="topbar">
+        <video autoplay muted loop>
+          <source src="../DV-Final/resources/Videos/cloud.mp4" type="video/mp4" id="bg" />
+        </video>
+        <img src="../DV-Final/resources/Images/mountain.png" id="mountain" />
+        <img src="../DV-Final/resources/Images/girl.png" id="girl" />
+        <h1 id="text">The Earth is what we all have in common...</h1>
+      </div>
+    </header>
+    <section>
+      <h2>Video Parallax Effect</h2>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas quasi molestiae
+        sequi quisquam assumenda esse alias ea quod voluptate corrupti? At fugit incidunt
+        consequuntur iste. Iusto accusantium ad accusamus commodi, excepturi iure, libero
+        mollitia, reiciendis illum, nostrum itaque aspernatur molestias. Repellendus
+        praesentium eveniet, accusantium. Enim ut, rem repellat quasi eos numquam sunt
+        dolorem dolore, corrupti laboriosam reprehenderit, velit at, temporibus harum
+        labore. Nam dolore doloremque dolorum amet tenetur natus commodi soluta nemo. Esse
+        unde, quasi. Reprehenderit ab, sint corrupti, nobis, repellat atque quam quis
+        cumque fugit ex ipsum voluptates eveniet magni quo praesentium ullam at, accusamus
+        velit veritatis nesciunt! Dolorum totam voluptatum corporis distinctio eum iure,
+        voluptas non, quaerat tenetur ad, doloremque quas maiores iste nisi labore fuga!
+        Sunt eligendi quisquam adipisci eveniet inventore delectus eum obcaecati itaque,
+        non velit, ad accusamus odit omnis laboriosam. Saepe aut doloribus debitis quaerat
+        accusamus, vero excepturi, minima quam quis quibusdam autem assumenda, ut.
+      </p>
+    </section>
+
+    <div id="marine">
+      <h2>Something Here about Marine Temp</h2>
+      <!-- Create a div where the graph will take place -->
+
+      <p>Drag to zoom in</p>
+      <p>double click the graph to reset</p>
+      <br />
+
+      <div id="my_dataviz"></div>
+    </div>
+
+    <!-- Parallax Animation  -->
+    <script>
+      const bg = document.getElementById("bg");
+      const mountain = document.getElementById("mountain");
+      const girl = document.getElementById("girl");
+      const text = document.getElementById("text");
+      const topbar = document.getElementById("topbar");
+
+      window.addEventListener("scroll", () => {
+        const value = window.scrollY;
+
+        if (value > 0) {
+          topbar.style.opacity = 0;
+        } else {
+          topbar.style.opacity = 1;
+        }
+
+        bg.style.top = value * 0.5 + "px";
+        mountain.style.top = -value * 0.08 + "px";
+        girl.style.top = value * 0.15 + "px";
+        text.style.top = value * 0.6 + "px";
+      });
+    </script>
+
+    <script src="../DV-Final/resources/JS/average-globe-marine.js"></script>
+  </body>
+</html>
