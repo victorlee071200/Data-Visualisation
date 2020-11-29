@@ -1,8 +1,8 @@
 function init() {
   // set the dimensions and margins of the graph
-  var margin = { top: 10, right: 30, bottom: 30, left: 60 },
-    width = 460 - margin.left - margin.right,
-    height = 400 - margin.top - margin.bottom;
+  var margin = { top: 20, right: 20, bottom: 50, left: 70 },
+    width = 880 - margin.left - margin.right,
+    height = 800 - margin.top - margin.bottom;
 
   // append the svg object to the body of the page
   var svg = d3
@@ -37,6 +37,15 @@ function init() {
         .append("g")
         .attr("transform", "translate(0," + height + ")")
         .call(d3.axisBottom(x));
+      // text label for the x axis
+      svg
+        .append("text")
+        .attr(
+          "transform",
+          "translate(" + width / 2 + " ," + (height + margin.top + 20) + ")"
+        )
+        .style("text-anchor", "middle")
+        .text("Year");
 
       // Add Y axis
       var y = d3
@@ -60,6 +69,16 @@ function init() {
         .attr("height", height)
         .attr("x", 0)
         .attr("y", 0);
+
+      // text label for the y axis
+      svg
+        .append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 0 - margin.left)
+        .attr("x", 0 - height / 2)
+        .attr("dy", "1em")
+        .style("text-anchor", "middle")
+        .text("Rate of CO2 emission (parts per million)");
 
       // Add brushing
       var brush = d3

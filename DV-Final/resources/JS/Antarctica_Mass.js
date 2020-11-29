@@ -1,41 +1,34 @@
-<!DOCTYPE html>
-<meta charset="utf-8" />
-
-<!-- Load d3.js -->
-<script src="https://d3js.org/d3.v4.js"></script>
-
-<!-- Create a div where the graph will take place -->
-<div id="my_dataviz"></div>
-
-<!-- Circle are black when hovered-->
-<style>
-  .myCircle:hover {
-    stroke: black;
-  }
-</style>
-
-<script>
+function init() {
   // set the dimensions and margins of the graph
-  var margin = { top: 10, right: 30, bottom: 30, left: 60 },
-    width = 460 - margin.left - margin.right,
-    height = 400 - margin.top - margin.bottom;
+  var margin = { top: 35, right: 20, bottom: 50, left: 70 },
+    width = 880 - margin.left - margin.right,
+    height = 800 - margin.top - margin.bottom;
 
   // append the svg object to the body of the page
   var svg = d3
-    .select("#my_dataviz")
+    .select("#antarctica")
     .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+  svg
+    .append("text")
+    .attr("x", width / 2)
+    .attr("y", 0 - margin.top / 2)
+    .attr("text-anchor", "middle")
+    .style("font-size", "16px")
+    .style("text-decoration", "underline")
+    .text("Average monthly Arctic sea ice loss each September since 1979");
+
   //Read the data
   d3.csv(
-    "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/connectedscatter.csv",
+    "../DV-Final/data/Antarctica_Mass_Loss.csv",
 
     // When reading the csv, I must format variables:
     function (d) {
-      return { date: d3.timeParse("%Y-%m-%d")(d.date), value: d.value };
+      return { date: d3.timeParse("%Y-%m-%d")(d.date), value: d.values };
     },
 
     // Now I can use this dataset:
@@ -54,8 +47,15 @@
         .attr("transform", "translate(0," + height + ")")
         .call(d3.axisBottom(x));
 
+      // text label for the x axis
+      svg
+        .append("text")
+        .attr("transform", "translate(" + width / 2 + " ," + (height + margin.top) + ")")
+        .style("text-anchor", "middle")
+        .text("Year");
+
       // Add Y axis
-      var y = d3.scaleLinear().domain([8000, 9200]).range([height, 0]);
+      var y = d3.scaleLinear().domain([0, 3000]).range([height, 0]);
       svg.append("g").call(d3.axisLeft(y));
 
       // Add the line
@@ -78,6 +78,16 @@
             })
         );
 
+      // text label for the y axis
+      svg
+        .append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 0 - margin.left)
+        .attr("x", 0 - height / 2)
+        .attr("dy", "1em")
+        .style("text-anchor", "middle")
+        .text("million sqaure (km)");
+
       // create a tooltip
       var Tooltip = d3
         .select("#my_dataviz")
@@ -95,8 +105,8 @@
         Tooltip.style("opacity", 1);
       };
       var mousemove = function (d) {
-        Tooltip.html("Exact value: " + d.value)
-          .style("left", d3.mouse(this)[0] + 70 + "px")
+        Tooltip.html("Exact value: " + d.value + " at " + d.date)
+          .style("left", d3.mouse(this)[0] + 120 + "px")
           .style("top", d3.mouse(this)[1] + "px");
       };
       var mouseleave = function (d) {
@@ -126,4 +136,5 @@
         .on("mouseleave", mouseleave);
     }
   );
-</script>
+}
+window.onload = init;

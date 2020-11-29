@@ -90,3 +90,9 @@ section p {
   margin-right: 30%;
   display: block;
 }
+
+/* Circle are black when hovered */
+
+.myCircle:hover {
+  stroke: black;
+}
