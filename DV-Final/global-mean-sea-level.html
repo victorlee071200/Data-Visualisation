@@ -38,22 +38,14 @@
       </p>
     </section>
 
-    <div id="marine">
-      <h2>Something Here about Marine Temp</h2>
-      <!-- Create a div where the graph will take place -->
+    <!-- Initialize a select button -->
+    <select id="selectButton"></select>
 
-      <p>Drag to zoom in</p>
-      <p>double click the graph to reset</p>
-      <br />
+    <!-- Create a div where the graph will take place -->
+    <div id="my_dataviz"></div>
 
-      <div id="my_dataviz"></div>
-    </div>
-    <!-- Circle are black when hovered-->
-    <style>
-      .myCircle:hover {
-        stroke: black;
-      }
-    </style>
+    <!-- Color Scale -->
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
 
     <!-- Parallax Animation  -->
     <script>
@@ -79,6 +71,14 @@
       });
     </script>
 
-    <script src="../DV-Final/resources/JS/antarctica-mass-loss.js"></script>
+    <style>
+      #selectButton {
+        margin-left: 40%;
+      }
+    </style>
+
+    <!-- Color Scale -->
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <script src="../DV-Final/resources/JS/global-mean-sea-level.js"></script>
   </body>
 </html>

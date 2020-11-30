@@ -1,6 +1,6 @@
 function init() {
   // set the dimensions and margins of the graph
-  var margin = { top: 35, right: 20, bottom: 50, left: 70 },
+  var margin = { top: 35, right: 20, bottom: 70, left: 70 },
     width = 880 - margin.left - margin.right,
     height = 800 - margin.top - margin.bottom;
 

@@ -1,26 +1,17 @@
 function init() {
   // set the dimensions and margins of the graph
-  var margin = { top: 35, right: 20, bottom: 50, left: 70 },
+  var margin = { top: 35, right: 20, bottom: 70, left: 70 },
     width = 880 - margin.left - margin.right,
     height = 800 - margin.top - margin.bottom;
 
   // append the svg object to the body of the page
   var svg = d3
-    .select("#antarctica")
+    .select("#my_dataviz")
     .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-  svg
-    .append("text")
-    .attr("x", width / 2)
-    .attr("y", 0 - margin.top / 2)
-    .attr("text-anchor", "middle")
-    .style("font-size", "16px")
-    .style("text-decoration", "underline")
-    .text("Average monthly Arctic sea ice loss each September since 1979");
 
   //Read the data
   d3.csv(
@@ -28,7 +19,7 @@ function init() {
 
     // When reading the csv, I must format variables:
     function (d) {
-      return { date: d3.timeParse("%Y-%m-%d")(d.date), value: d.values };
+      return { date: d3.timeParse("%Y-%m-%d")(d.date), value: d.value };
     },
 
     // Now I can use this dataset:
@@ -47,16 +38,27 @@ function init() {
         .attr("transform", "translate(0," + height + ")")
         .call(d3.axisBottom(x));
 
-      // text label for the x axis
       svg
         .append("text")
-        .attr("transform", "translate(" + width / 2 + " ," + (height + margin.top) + ")")
+        .attr(
+          "transform",
+          "translate(" + width / 2 + " ," + (height + margin.top + 20) + ")"
+        )
         .style("text-anchor", "middle")
         .text("Year");
 
       // Add Y axis
-      var y = d3.scaleLinear().domain([0, 3000]).range([height, 0]);
+      var y = d3.scaleLinear().domain([-3000, 0]).range([height, 0]);
       svg.append("g").call(d3.axisLeft(y));
+
+      svg
+        .append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 0 - margin.left)
+        .attr("x", 0 - height / 2)
+        .attr("dy", "1em")
+        .style("text-anchor", "middle")
+        .text("million sqaure (km)");
 
       // Add the line
       svg
@@ -78,16 +80,6 @@ function init() {
             })
         );
 
-      // text label for the y axis
-      svg
-        .append("text")
-        .attr("transform", "rotate(-90)")
-        .attr("y", 0 - margin.left)
-        .attr("x", 0 - height / 2)
-        .attr("dy", "1em")
-        .style("text-anchor", "middle")
-        .text("million sqaure (km)");
-
       // create a tooltip
       var Tooltip = d3
         .select("#my_dataviz")
@@ -106,7 +98,7 @@ function init() {
       };
       var mousemove = function (d) {
         Tooltip.html("Exact value: " + d.value + " at " + d.date)
-          .style("left", d3.mouse(this)[0] + 120 + "px")
+          .style("left", d3.mouse(this)[0] + 70 + "px")
           .style("top", d3.mouse(this)[1] + "px");
       };
       var mouseleave = function (d) {
